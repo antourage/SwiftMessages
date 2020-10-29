@@ -52,6 +52,9 @@ public class TopBottomAnimation: NSObject, Animator {
 
     public func show(context: AnimationContext, completion: @escaping AnimationCompletion) {
         NotificationCenter.default.addObserver(self, selector: #selector(adjustMargins), name: UIDevice.orientationDidChangeNotification, object: nil)
+        if case .bottom = style {
+            NotificationCenter.default.addObserver(self, selector: #selector(adjustMargins), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        }
         install(context: context)
         showAnimation(completion: completion)
     }

@@ -102,8 +102,7 @@ open class KeyboardTrackingView: UIView {
             let userInfo = (notification as NSNotification).userInfo,
             let value = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         let keyboardRect = value.cgRectValue
-        let thisRect = convert(bounds, to: nil)
-        let newHeight = max(0, thisRect.maxY - keyboardRect.minY) + topMargin
+        let newHeight = keyboardRect.height + topMargin
         guard heightConstraint.constant != newHeight else { return }
         delegate?.keyboardTrackingViewWillChange(change: change, userInfo: userInfo)
         animateKeyboardChange(change: change, height: newHeight, userInfo: userInfo)
